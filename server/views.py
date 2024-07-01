@@ -15,7 +15,7 @@ def get_client_ip(request):
 
 @api_view(["GET"])
 def hello(request):
-    visitor_name = request.GET.get("visitor_name", "Guest")
+    visitor_name = request.GET.get("visitor_name")
     client_ip = get_client_ip(request)
 
     # Replace with your Geo.ipify API key
