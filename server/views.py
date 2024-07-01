@@ -15,7 +15,7 @@ def get_client_ip(request):
 
 @api_view(["GET"])
 def hello(request):
-    visitor_name = request.GET.get("visitor_name", "Guest")
+    visitor_name = request.GET.get("visitor_name")
     client_ip = get_client_ip(request)
 
     # Replace with your Geo.ipify API key
@@ -31,7 +31,7 @@ def hello(request):
         location = "Unknown"
 
     temperature = "11 Degrees Celsius"
-    greeting = f"Hello {visitor_name}, your location is {location} and the temperature is {temperature}"
+    greeting = f"Hello {visitor_name}!, the temperature is {temperature} in {location}."
 
     return JsonResponse(
         {"client_ip": client_ip, "location": location, "greeting": greeting}
