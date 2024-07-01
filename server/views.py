@@ -25,7 +25,7 @@ def hello(request):
             f"https://geo.ipify.org/api/v2/country?apiKey={api_key}&ipAddress={client_ip}"
         )
         data = response.json()
-        location = data.get("region", "Unknown")
+        region = data.get("region", "Unknown")
     except requests.exceptions.RequestException as e:
         location = "Unknown"
 
@@ -33,5 +33,5 @@ def hello(request):
     greeting = f"Hello {visitor_name}, your location is {location} and the temperature is {temperature}"
 
     return JsonResponse(
-        {"client_ip": client_ip, "location": location, "greeting": greeting}
+        {"Client_ip": client_ip, "Location": region, "Greeting": greeting}
     )
