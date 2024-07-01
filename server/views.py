@@ -18,14 +18,15 @@ def hello(request):
     visitor_name = request.GET.get("visitor_name", "Guest")
     client_ip = get_client_ip(request)
 
+    # Replace with your Geo.ipify API key
     api_key = "at_IZZho0iOix69h2SEo6ClSJCrFO87D"
+    geo_url = f"https://geo.ipify.org/api/v1?apiKey={api_key}&ipAddress={client_ip}"
 
     try:
-        response = requests.get(
-            f"https://geo.ipify.org/api/v2/country?apiKey={api_key}&ipAddress={client_ip}"
-        )
+        response = requests.get(geo_url)
+        response.raise_for_status()  # Raise an error for bad status codes
         data = response.json()
-        region = data.get("region", "Unknown")
+        location = f"{data.get('location', {}).get('region', 'Unknown')}, {data.get('location', {}).get('country', 'Unknown')}"
     except requests.exceptions.RequestException as e:
         location = "Unknown"
 
@@ -33,5 +34,5 @@ def hello(request):
     greeting = f"Hello {visitor_name}, your location is {location} and the temperature is {temperature}"
 
     return JsonResponse(
-        {"Client_ip": client_ip, "Location": region, "Greeting": greeting}
+        {"client_ip": client_ip, "location": location, "greeting": greeting}
     )
