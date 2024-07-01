@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 
 
 @api_view(["GET"])
-def web_server(request):
+def hello(request):
     visitor_name = request.GET.get("visitor_name", "Guest")
     client_ip = request.META.get("REMOTE_ADDR")
 
