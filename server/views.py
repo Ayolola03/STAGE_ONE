@@ -18,10 +18,12 @@ def hello(request):
     visitor_name = request.GET.get("visitor_name", "Guest")
     client_ip = get_client_ip(request)
 
-    api_key = "c93e43f837557bf83551058e095c0fe5f32dc54adaf84895fcf2a821"
+    api_key = "at_IZZho0iOix69h2SEo6ClSJCrFO87D"
 
     try:
-        response = requests.get(f"https://api.ipdata.co/{client_ip}?api-key={api_key}")
+        response = requests.get(
+            f"https://geo.ipify.org/api/v2/country?apiKey={api_key}&ipAddress={client_ip}"
+        )
         data = response.json()
         location = data.get("city", "Unknown")
     except requests.exceptions.RequestException as e:
